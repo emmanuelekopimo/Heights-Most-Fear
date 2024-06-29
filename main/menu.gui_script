@@ -1,0 +1,19 @@
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	pprint(gui.get_scale(gui.get_node("play")))
+	gui.set_scale(gui.get_node("play"), vmath.vector3(0.49000000953674, 0.49000000953674, 0.49000000953674))
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("touch") and action.pressed then
+		print("Touch!")
+		if gui.pick_node(gui.get_node("play"), action.x, action.y) then
+			print("Button-clicked")
+			gui.animate(gui.get_node("play"), "scale", 0.65, gui.EASING_LINEAR, 0.07, 0, function() 
+				msg.post("main:/main", "start_game")
+			end)
+				
+		end
+	end
+	
+end
